@@ -1,21 +1,19 @@
 // Run only one time to create database
 const { Client } = require("pg");
+const fs = require("node:fs/promises");
 
 const INIT_DB_QUERY = `
-DROP DATABASE movie-manager;
-CREATE DATABASE movie_manager;
-
 CREATE TABLE IF NOT EXISTS directors (
     id      integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name    varchar(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS movies (
-    id        integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name      varchar(255) NOT NULL,
+    id              integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    name            varchar(255) NOT NULL,
     director_id     integer REFERENCES directors,
     release_date    date NOT NULL,
-    runtime         interval HOUR TO MINUTE NOT NULL,
+    runtime         interval HOUR TO MINUTE NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS actors (
@@ -27,7 +25,7 @@ CREATE TABLE IF NOT EXISTS castings (
     actor_id        integer REFERENCES actors,
     movie_id        integer REFERENCES movies,
     character       varchar(255) NOT NULL,
-    PRIMARY KEY (actor_id, movie_id)
+    PRIMARY KEY     (actor_id, movie_id)
 );
 `;
 
@@ -58,7 +56,7 @@ INSERT INTO castings (actor_id, movie_id, character) VALUES
     (1, 1, 'Cooper'),
     (2, 1, 'Brand'),
     (3, 1, 'Mann'),
-    (9, 2, 'Grant'),
+    (4, 2, 'Grant'),
     (5, 2, 'Malcolm'),
     (6, 2, 'Hammond'),
     (7, 3, 'Mark Zuckerberg'),
@@ -74,8 +72,12 @@ async function initDb() {
   });
 
   await client.connect();
+  console.log("Creating Tables...");
   await client.query(INIT_DB_QUERY);
+  console.log("Tables Created");
+  console.log("Inserting Values...");
   await client.query(INSERT_VALUES_QUERY);
+  console.log("Values Inserted");
   await client.end();
 }
 
