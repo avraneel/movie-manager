@@ -6,21 +6,23 @@ async function addActor(actor) {}
 
 async function addDirector(director) {}
 
-async function getMovieByDirector(category) {}
+async function getMovieByDirector(name) {
+  const { rows } = await pool.query(
+    `select movies.name as movie_name from movies join directors where director_id = ($1);`,
+    [name],
+  );
+  console.log(rows);
+}
 
 async function getMovie(name) {
-  const queryName = name
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
   const { rows } = await pool.query(
     `select movies.name as movie_name, directors.name as director, release_date, runtime 
         from movies 
         join directors on movies.director_id = directors.id
         where movies.name = ($1);`,
-    [queryName],
+    [name],
   );
-  const castArray = await getCast(queryName);
+  const castArray = await getCast(name);
   const movie = rows[0];
   movie.cast = castArray;
   return movie;
@@ -40,4 +42,5 @@ async function getCast(name) {
 
 module.exports = {
   getMovie,
+  getMovieByDirector,
 };
