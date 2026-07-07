@@ -7,6 +7,10 @@ function kebabToSentenceCase(kebabCase) {
     .join(" ");
 }
 
+function formGet(req, res) {
+  res.render("form");
+}
+
 async function addMoviePost(req, res) {}
 
 async function addDirectorPost(req, res) {}
@@ -35,6 +39,7 @@ async function movieGet(req, res) {
 }
 
 module.exports = {
+  formGet,
   movieGet,
   movieByDirectorGet,
 };
