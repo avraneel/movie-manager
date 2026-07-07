@@ -11,7 +11,10 @@ function formGet(req, res) {
   res.render("form");
 }
 
-async function addMoviePost(req, res) {}
+async function addMoviePost(req, res) {
+  await queries.addDirector(req.body.directorName);
+  console.log(req.body);
+}
 
 async function addDirectorPost(req, res) {}
 
@@ -40,6 +43,7 @@ async function movieGet(req, res) {
 
 module.exports = {
   formGet,
+  addMoviePost,
   movieGet,
   movieByDirectorGet,
 };

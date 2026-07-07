@@ -4,7 +4,9 @@ async function addMovie(movie) {}
 
 async function addActor(actor) {}
 
-async function addDirector(director) {}
+async function addDirector(director) {
+  await pool.query(`insert into directors (name) values ($1)`, [director]);
+}
 
 async function getMovieByDirector(name) {
   const { rows } = await pool.query(
@@ -42,6 +44,7 @@ async function getCast(name) {
 }
 
 module.exports = {
+  addDirector,
   getMovie,
   getMovieByDirector,
 };
