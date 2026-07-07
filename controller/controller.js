@@ -1,4 +1,4 @@
-const queries = require("./db/queries");
+const queries = require("../db/queries");
 
 function kebabToSentenceCase(kebabCase) {
   return kebabCase
@@ -14,9 +14,13 @@ async function addDirectorPost(req, res) {}
 async function addActorPost(req, res) {}
 
 async function movieByDirectorGet(req, res) {
-  const moviesByDirector = await queries.getMovieByDirector(
-    kebabToSentenceCase(req.params.directorName),
-  );
+  const directorName = kebabToSentenceCase(req.params.directorName);
+  const moviesByDirector = await queries.getMovieByDirector(directorName);
+  console.log(directorName);
+  res.render("directorPage", {
+    title: directorName,
+    movies: moviesByDirector,
+  });
 }
 
 async function movieGet(req, res) {

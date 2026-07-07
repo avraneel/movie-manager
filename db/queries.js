@@ -8,10 +8,11 @@ async function addDirector(director) {}
 
 async function getMovieByDirector(name) {
   const { rows } = await pool.query(
-    `select movies.name as movie_name from movies join directors where director_id = ($1);`,
+    `select movies.name as movie_name from movies join directors on movies.director_id = directors.id where directors.name = ($1);`,
     [name],
   );
-  console.log(rows);
+  const movies = rows.map((item) => item.movie_name);
+  return movies;
 }
 
 async function getMovie(name) {

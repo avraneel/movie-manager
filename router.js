@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const controller = require("./controller");
+const controller = require("./controller/controller");
 const router = Router();
 
 router.get("/movies/:movieName", controller.movieGet);
