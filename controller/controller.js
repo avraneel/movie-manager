@@ -1,3 +1,4 @@
+const pool = require("../db/pool");
 const queries = require("../db/queries");
 
 function kebabToSentenceCase(kebabCase) {
@@ -11,7 +12,14 @@ function formGet(req, res) {
   res.render("form");
 }
 
+async function homePageGet(req, res) {
+  const allMovies = await queries.getAllMovies();
+  console.log(allMovies);
+  res.render("home", { allMovies: allMovies });
+}
+
 async function addMoviePost(req, res) {
+  // TODO: Add form validation
   await queries.addDirector(req.body.directorName);
   await queries.addMovie(req.body);
   res.redirect("/new");
@@ -44,6 +52,7 @@ async function movieGet(req, res) {
 }
 
 module.exports = {
+  homePageGet,
   formGet,
   addMoviePost,
   movieGet,

@@ -44,6 +44,11 @@ async function getMovie(name) {
   return movie;
 }
 
+async function getAllMovies() {
+  const { rows } = await pool.query("select * from movies;");
+  return rows;
+}
+
 async function getCast(name) {
   const { rows } = await pool.query(
     `select actors.name as actor_name from movies 
@@ -60,5 +65,6 @@ module.exports = {
   addDirector,
   addMovie,
   getMovie,
+  getAllMovies,
   getMovieByDirector,
 };
