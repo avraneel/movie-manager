@@ -1,11 +1,24 @@
 const pool = require("./pool");
 
-async function addMovie(movie) {}
+async function addMovie(movie) {
+  console.log(movie.runTimeHours);
+  const runTimeString = `${movie.runtimeHours} hours ${movie.runtimeMinutes} minutes`;
+  await pool.query(
+    `insert into movies (name, director_id, release_date, runtime)
+      values ($1, (select id from directors where directors.name = $2), $3, $4)
+      on conflict (id) do nothing;`,
+    [movie.name, movie.directorName, movie.releaseDate, runTimeString],
+  );
+}
 
 async function addActor(actor) {}
 
 async function addDirector(director) {
-  await pool.query(`insert into directors (name) values ($1)`, [director]);
+  await pool.query(
+    `insert into directors (name) values ($1)
+      on conflict (id) do nothing;`,
+    [director],
+  );
 }
 
 async function getMovieByDirector(name) {
@@ -45,6 +58,7 @@ async function getCast(name) {
 
 module.exports = {
   addDirector,
+  addMovie,
   getMovie,
   getMovieByDirector,
 };

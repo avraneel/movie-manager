@@ -22,13 +22,20 @@
       </div>
       <div class="formItem">
         <label for="releaseDate">Runtime</label>
-        <input type="number" name="runtime" id="runtime" min="0" />h
+        <input
+          type="number"
+          name="runtimeHours"
+          id="runtimeHours"
+          min="0"
+          required
+        />h
         <input
           type="number"
           name="runtimeMinutes"
           id="runtimeMinutes"
           min="0"
           max="59"
+          required
         />min
       </div>
       <button>Submit</button>

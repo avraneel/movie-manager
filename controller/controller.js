@@ -13,6 +13,8 @@ function formGet(req, res) {
 
 async function addMoviePost(req, res) {
   await queries.addDirector(req.body.directorName);
+  await queries.addMovie(req.body);
+  res.redirect("/new");
   console.log(req.body);
 }
 
