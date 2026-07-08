@@ -23,19 +23,19 @@ CREATE TABLE IF NOT EXISTS actors (
 );
 
 CREATE TABLE IF NOT EXISTS castings (
-    actor_id        integer REFERENCES actors,
-    movie_id        integer REFERENCES movies,
-    character       varchar(255) NOT NULL,
-    PRIMARY KEY     (actor_id, movie_id)
+    actor_id    integer REFERENCES actors,
+    movie_id    integer REFERENCES movies,
+    character   varchar(255) NOT NULL,
+    PRIMARY KEY (actor_id, movie_id)
 );
 `;
 
 const INSERT_VALUES_QUERY = `
-INSERT INTO directors (name) VALUES
-    ('Christopher Nolan'),
-    ('Steven Spielberg'),
-    ('David Fincher'),
-    ('Ridley Scott');
+INSERT INTO directors (name, dob) VALUES
+    ('Christopher Nolan', '1970-07-30'),
+    ('Steven Spielberg', '1946-12-18'),
+    ('David Fincher', '1962-08-28'),
+    ('Ridley Scott', '1937-11-30');
 
 INSERT INTO movies (name, director_id, release_date, runtime) VALUES
     ('Interstellar', (SELECT id FROM directors WHERE directors.name = 'Christopher Nolan'), '2014-10-26', '2 hours 49 minutes'),

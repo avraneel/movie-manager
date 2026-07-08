@@ -8,8 +8,9 @@ function kebabToSentenceCase(kebabCase) {
     .join(" ");
 }
 
-function formGet(req, res) {
-  res.render("form");
+async function formGet(req, res) {
+  const directorList = await queries.getAllDirectors();
+  res.render("form", { directorList: directorList });
 }
 
 function directorFormGet(req, res) {

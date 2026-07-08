@@ -26,6 +26,7 @@ async function addActor(actor) {
 }
 
 async function addDirector(director) {
+  // TODO restructure it to add to director db
   await pool.query(
     `insert into directors (name) values ($1)
       on conflict (id) do nothing;`,

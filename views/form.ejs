@@ -14,7 +14,13 @@
       </div>
       <div class="formItem">
         <label for="directorName">Director Name</label>
-        <input type="text" name="directorName" id="directorName" />
+        <select name="directorName" id="directorName">
+          <option value="">-- Chose Director --</option>
+          <% directorList.forEach(director => { %>
+          <option value="<%= director.id %>"><%= director.name %></option>
+          <% }); %>
+        </select>
+        <!-- <input type="text" name="directorName" id="directorName" /> -->
       </div>
       <div class="formItem">
         <label for="releaseDate">Release Date</label>
