@@ -5,7 +5,7 @@ async function addMovie(movie) {
   const runTimeString = `${movie.runtimeHours} hours ${movie.runtimeMinutes} minutes`;
   await pool.query(
     `insert into movies (name, director_id, release_date, runtime)
-      values ($1, (select id from directors where directors.name = $2), $3, $4)
+      values ($1, (select id from directors where directors.name = $2 limit 1), $3, $4)
       on conflict (id) do nothing;`,
     [movie.name, movie.directorName, movie.releaseDate, runTimeString],
   );
@@ -16,7 +16,14 @@ async function getAllDirectors() {
   return rows;
 }
 
-async function addActor(actor) {}
+async function addActor(actor) {
+  // TODO add actors on movie form
+  await pool.query(
+    `insert into actors (name) value ($1)
+      on conflict (id) do nothing;`,
+    [actor],
+  );
+}
 
 async function addDirector(director) {
   await pool.query(
@@ -69,6 +76,7 @@ async function getCast(name) {
 module.exports = {
   addDirector,
   getAllDirectors,
+  addActor,
   addMovie,
   getMovie,
   getAllMovies,

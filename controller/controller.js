@@ -12,6 +12,10 @@ function formGet(req, res) {
   res.render("form");
 }
 
+function directorFormGet(req, res) {
+  res.render("directorForm");
+}
+
 async function homePageGet(req, res) {
   const allMovies = await queries.getAllMovies();
   const allDirectors = await queries.getAllDirectors();
@@ -20,11 +24,14 @@ async function homePageGet(req, res) {
 }
 
 async function addMoviePost(req, res) {
-  // TODO: Add form validation
+  // TODO add form validation
+  const cast = req.body.cast.split(/[\s,]+/);
   await queries.addDirector(req.body.directorName);
   await queries.addMovie(req.body);
+  cast.forEach(async function (actor) {
+    await queries.addActor(kebabToSentenceCase(actor));
+  });
   res.redirect("/new");
-  console.log(req.body);
 }
 
 async function addDirectorPost(req, res) {}
@@ -58,4 +65,5 @@ module.exports = {
   addMoviePost,
   movieGet,
   movieByDirectorGet,
+  directorFormGet,
 };

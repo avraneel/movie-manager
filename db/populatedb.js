@@ -5,7 +5,8 @@ const fs = require("node:fs/promises");
 const INIT_DB_QUERY = `
 CREATE TABLE IF NOT EXISTS directors (
     id      integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name    varchar(255) NOT NULL
+    name    varchar(255) NOT NULL,
+    dob     date NOT NULL CHECK (dob < CURRENT_DATE)
 );
 
 CREATE TABLE IF NOT EXISTS movies (
