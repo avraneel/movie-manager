@@ -14,8 +14,9 @@ function formGet(req, res) {
 
 async function homePageGet(req, res) {
   const allMovies = await queries.getAllMovies();
-  console.log(allMovies);
-  res.render("home", { allMovies: allMovies });
+  const allDirectors = await queries.getAllDirectors();
+  console.log(allDirectors);
+  res.render("home", { allMovies: allMovies, allDirectors: allDirectors });
 }
 
 async function addMoviePost(req, res) {

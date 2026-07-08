@@ -6,11 +6,18 @@
     <title>Document</title>
   </head>
   <body>
-    <h1>All Movies</h1>
+    <h1>Movie Manager</h1>
+    <h2>All Movies</h2>
     <ul>
     <% allMovies.forEach(item => { %>
       <li><a href="/movies/<%= item.name.toLowerCase().split(" ").join("-") %>"><%= item.name %></a></li>
     <% }); %>
+    </ul>
+    <h2>All Directors</h2>
+    <ul>
+      <% allDirectors.forEach(item => { %>
+        <li><a href="/movies/<% item.name.toLowerCase().split(" ").join("-") %>"><%= item.name %></a></li>
+      <% }) %>
     </ul>
   </body>
 </html>
