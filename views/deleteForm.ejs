@@ -6,10 +6,16 @@
     <title>Delete Movie</title>
   </head>
   <body>
+    <h2>Delete Movie</h2>
     <form action="">
       <div class="formItem">
         <label for="movieName">Movie Name</label>
-        <select name="" id="movieName"></select>
+        <select name="movieName" id="movieName">
+            <option value="">-- Please Choose an Option --</option>
+            <% list.forEach(item => { %>
+                <option value="<%= item.id %>"><%= item.name %></option>
+            <% }) %>
+        </select>
       </div>
     </form>
   </body>

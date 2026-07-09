@@ -9,5 +9,6 @@ router.get("/directors/:directorName", controller.movieByDirectorGet);
 router.get("/", controller.homePageGet);
 router.get("/newDirector", controller.directorFormGet);
 router.post("/newDirector", controller.addDirectorPost);
+router.get("/deleteMovie", controller.deleteMovieGet);
 
 module.exports = router;

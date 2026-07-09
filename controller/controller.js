@@ -66,6 +66,11 @@ async function movieGet(req, res) {
   res.render("moviePage", { movie: movieDetails });
 }
 
+async function deleteMovieGet(req, res) {
+  const movieList = await queries.getAllMovies();
+  res.render("deleteForm", { list: movieList });
+}
+
 module.exports = {
   homePageGet,
   formGet,
@@ -74,4 +79,5 @@ module.exports = {
   movieByDirectorGet,
   directorFormGet,
   addDirectorPost,
+  deleteMovieGet,
 };
