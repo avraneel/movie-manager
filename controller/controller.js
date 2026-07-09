@@ -8,9 +8,16 @@ function kebabToSentenceCase(kebabCase) {
     .join(" ");
 }
 
+function toSentenceCase(input) {
+  return input
+    .split()
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
 async function formGet(req, res) {
   const directorList = await queries.getAllDirectors();
-  res.render("form", { directorList: directorList });
+  res.render("movieForm", { directorList: directorList });
 }
 
 function directorFormGet(req, res) {
@@ -20,19 +27,21 @@ function directorFormGet(req, res) {
 async function homePageGet(req, res) {
   const allMovies = await queries.getAllMovies();
   const allDirectors = await queries.getAllDirectors();
-  console.log(allDirectors);
   res.render("home", { allMovies: allMovies, allDirectors: allDirectors });
 }
 
 async function addMoviePost(req, res) {
   // TODO add form validation
-  const cast = req.body.cast.split(/[\s,]+/);
-  await queries.addDirector(req.body.directorName);
+  req.body.name = toSentenceCase(req.body.name);
   await queries.addMovie(req.body);
-  res.redirect("/new");
+  res.redirect("/");
 }
 
-async function addDirectorPost(req, res) {}
+async function addDirectorPost(req, res) {
+  req.body.directorName = toSentenceCase(req.body.directorName);
+  await queries.addDirector(req.body);
+  res.redirect("/");
+}
 
 async function movieByDirectorGet(req, res) {
   const directorName = kebabToSentenceCase(req.params.directorName);
@@ -54,7 +63,6 @@ async function movieGet(req, res) {
   const releaseDate = new Date(movieDetails.release_date);
   const dateString = `${releaseDate.toLocaleDateString("default", { month: "long" })} ${releaseDate.getDate()}, ${releaseDate.getFullYear()}`;
   movieDetails.release_date = dateString;
-  console.log(movieDetails);
   res.render("moviePage", { movie: movieDetails });
 }
 
@@ -65,4 +73,5 @@ module.exports = {
   movieGet,
   movieByDirectorGet,
   directorFormGet,
+  addDirectorPost,
 };
