@@ -56,6 +56,8 @@ async function getAllMovies() {
   return rows;
 }
 
+// TODO implement movie and director deletion queries
+
 module.exports = {
   getDob,
   addDirector,
