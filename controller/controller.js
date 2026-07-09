@@ -29,22 +29,20 @@ async function addMoviePost(req, res) {
   const cast = req.body.cast.split(/[\s,]+/);
   await queries.addDirector(req.body.directorName);
   await queries.addMovie(req.body);
-  cast.forEach(async function (actor) {
-    await queries.addActor(kebabToSentenceCase(actor));
-  });
   res.redirect("/new");
 }
 
 async function addDirectorPost(req, res) {}
 
-async function addActorPost(req, res) {}
-
 async function movieByDirectorGet(req, res) {
   const directorName = kebabToSentenceCase(req.params.directorName);
+  const dob = await queries.getDob(directorName);
   const moviesByDirector = await queries.getMovieByDirector(directorName);
-  console.log(directorName);
+  const dateOb = new Date(dob[0].dob);
+  const dateString = `${dateOb.toLocaleDateString("default", { month: "long" })} ${dateOb.getDate()}, ${dateOb.getFullYear()}`;
   res.render("directorPage", {
     title: directorName,
+    dob: dateString,
     movies: moviesByDirector,
   });
 }

@@ -16,15 +16,6 @@ async function getAllDirectors() {
   return rows;
 }
 
-async function addActor(actor) {
-  // TODO add actors on movie form
-  await pool.query(
-    `insert into actors (name) value ($1)
-      on conflict (id) do nothing;`,
-    [actor],
-  );
-}
-
 async function addDirector(director) {
   // TODO restructure it to add to director db
   await pool.query(
@@ -51,10 +42,16 @@ async function getMovie(name) {
         where movies.name = ($1);`,
     [name],
   );
-  const castArray = await getCast(name);
   const movie = rows[0];
-  movie.cast = castArray;
   return movie;
+}
+
+async function getDob(name) {
+  const { rows } = await pool.query(
+    "select dob from directors where directors.name = $1;",
+    [name],
+  );
+  return rows;
 }
 
 async function getAllMovies() {
@@ -62,22 +59,10 @@ async function getAllMovies() {
   return rows;
 }
 
-async function getCast(name) {
-  const { rows } = await pool.query(
-    `select actors.name as actor_name from movies 
-            join castings on movies.id = castings.movie_id
-            join actors on castings.actor_id = actors.id
-            where movies.name = ($1);`,
-    [name],
-  );
-  const castArray = rows.map((actor) => actor.actor_name);
-  return castArray;
-}
-
 module.exports = {
+  getDob,
   addDirector,
   getAllDirectors,
-  addActor,
   addMovie,
   getMovie,
   getAllMovies,

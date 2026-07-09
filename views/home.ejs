@@ -16,7 +16,7 @@
     <h2>All Directors</h2>
     <ul>
       <% allDirectors.forEach(item => { %>
-        <li><a href="/movies/<% item.name.toLowerCase().split(" ").join("-") %>"><%= item.name %></a></li>
+        <li><a href="/directors/<%= item.name.toLowerCase().split(" ").join("-") %>"><%= item.name %></a></li>
       <% }) %>
     </ul>
   </body>

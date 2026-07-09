@@ -8,13 +8,7 @@
   <body>
     <h1><%= movie.movie_name %></h1>
     <p>Directed by: <%= movie.director %></p>
-    <p>Released on: 
-      <%= movie.release_date %>
-    </p>
+    <p>Released on: <%= movie.release_date %></p>
     <p>Runtime: <%= movie.runtime.hours %>h <%= movie.runtime.minutes %>min</p>
-    <p>Cast:</p>
-    <ul><% movie.cast.forEach(actor => { %>
-        <li><%= actor %></li>
-    <% }); %></ul>
   </body>
 </html>
