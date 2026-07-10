@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Add Movie</title>
   </head>
   <body>
     <h1>Add Movie</h1>
@@ -32,6 +32,7 @@
           name="runtimeHours"
           id="runtimeHours"
           min="0"
+          max="999"
           required
         />h
         <input
@@ -42,10 +43,6 @@
           max="59"
           required
         />min
-      </div>
-      <div class="formItem">
-        <label for="cast">Cast</label>
-        <textarea name="cast" id="cast"></textarea>
       </div>
       <button>Submit</button>
     </form>
