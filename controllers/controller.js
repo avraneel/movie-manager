@@ -1,5 +1,5 @@
 const pool = require("../db/pool");
-const queries = require("../db/queries");
+const queries = require("../db/queries/queries");
 
 function kebabToSentenceCase(kebabCase) {
   return kebabCase

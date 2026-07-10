@@ -1,5 +1,6 @@
 const { Router } = require("express");
-const controller = require("../controller/controller");
+const controller = require("../controllers/controller");
+const movieController = require("../controllers/movieController");
 const router = Router();
 
 router.get("/new", controller.formGet);
@@ -9,6 +10,7 @@ router.get("/directors/:directorName", controller.movieByDirectorGet);
 router.get("/", controller.homePageGet);
 router.get("/newDirector", controller.directorFormGet);
 router.post("/newDirector", controller.addDirectorPost);
-router.get("/deleteMovie", controller.deleteMovieGet);
+router.get("/deleteMovie", movieController.deleteMovieGet);
+router.post("/deleteMovie", movieController.deleteMoviePost);
 
 module.exports = router;

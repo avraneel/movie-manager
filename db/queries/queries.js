@@ -1,4 +1,4 @@
-const pool = require("./pool");
+const pool = require("../pool");
 
 async function addMovie(movie) {
   const runTimeString = `${movie.runtimeHours} hours ${movie.runtimeMinutes} minutes`;

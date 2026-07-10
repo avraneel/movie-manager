@@ -7,7 +7,7 @@
   </head>
   <body>
     <h2>Delete Movie</h2>
-    <form action="">
+    <form action="/deleteMovie" method="post">
       <div class="formItem">
         <label for="movieName">Movie Name</label>
         <select name="movieName" id="movieName">
@@ -17,6 +17,7 @@
             <% }) %>
         </select>
       </div>
+      <button>Submit</button>
     </form>
   </body>
 </html>
